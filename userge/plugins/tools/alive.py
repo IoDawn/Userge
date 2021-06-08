@@ -65,32 +65,32 @@ def _get_mode() -> str:
 def _get_alive_text_and_markup(message: Message) -> Tuple[str, Optional[InlineKeyboardMarkup]]:
     markup = None
     output = f"""
-**⏱ Uptime** : `{userge.uptime}`
-**💡 Version** : `{get_version()}`
-**⚙️ Mode** : `{_get_mode().upper()}`
+**â± Uptime** : `{userge.uptime}`
+**ð¡ Version** : `{get_version()}`
+**âï¸ Mode** : `{_get_mode().upper()}`
 
-• **Sudo**: `{_parse_arg(Config.SUDO_ENABLED)}`
-• **Pm-Guard**: `{_parse_arg(not Config.ALLOW_ALL_PMS)}`
-• **Anti-Spam**: `{_parse_arg(Config.ANTISPAM_SENTRY)}`"""
+â¢ **Sudo**: `{_parse_arg(Config.SUDO_ENABLED)}`
+â¢ **Pm-Guard**: `{_parse_arg(not Config.ALLOW_ALL_PMS)}`
+â¢ **Anti-Spam**: `{_parse_arg(Config.ANTISPAM_SENTRY)}`"""
     if Config.HEROKU_APP:
-        output += f"\n• **Dyno-saver**: `{_parse_arg(Config.RUN_DYNO_SAVER)}`"
+        output += f"\nâ¢ **Dyno-saver**: `{_parse_arg(Config.RUN_DYNO_SAVER)}`"
     output += f"""
-• **Unofficial**: `{_parse_arg(Config.LOAD_UNOFFICIAL_PLUGINS)}`
+â¢ **Unofficial**: `{_parse_arg(Config.LOAD_UNOFFICIAL_PLUGINS)}`
 
     **__Python__**: `{versions.__python_version__}`
     **__Pyrogram__**: `{versions.__pyro_version__}`"""
     if not message.client.is_bot:
         output += f"""\n
-🎖 **{versions.__license__}** | 👥 **{versions.__copyright__}** | 🧪 **[Repo]({Config.UPSTREAM_REPO})**
+ð **{versions.__license__}** | ð§ **[Music](https://t.me/Rosomusic_bot)** | ð **[Manage](https://t.me/RosoManage2_bot)** | ð **[Support](https://t.me/arunasupportbot)**
 """
     else:
         copy_ = "https://github.com/UsergeTeam/Userge/blob/master/LICENSE"
         markup = InlineKeyboardMarkup([
             [
-                InlineKeyboardButton(text="👥 UsergeTeam", url="https://github.com/UsergeTeam"),
-                InlineKeyboardButton(text="🧪 Repo", url=Config.UPSTREAM_REPO)
+                InlineKeyboardButton(text="ð§ Music", url="https://t.me/Rosomusic_bot"),
+                InlineKeyboardButton(text="ð Manage", url="https://t.me/RosoManage2_bot")
             ],
-            [InlineKeyboardButton(text="🎖 GNU GPL v3.0", url=copy_)]
+            [InlineKeyboardButton(text="ð Support", url="https://t.me/arunasupportbot")]
         ])
     return output, markup
 
