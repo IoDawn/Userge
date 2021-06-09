@@ -485,7 +485,7 @@ async def stop_music(msg: Message):
     await msg.delete()
     await _skip(True)
 
-    await reply_text(msg, "`Stopped Userge-Music.`", del_in=5)
+    await reply_text(msg, "`Stopped Roso-Music♬.`", del_in=5)
 
 
 @call.on_network_status_changed
