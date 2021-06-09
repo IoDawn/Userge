@@ -353,22 +353,22 @@ if userge.has_bot:
         results = [
             InlineQueryResultArticle(
                 id=uuid4(),
-                title="Repo",
+                title="info",
                 input_message_content=InputTextMessageContent(
-                    "**Here's how to setup Userge** 😎"
+                    "**Here's info about Roso** 🍺"
                 ),
-                url="https://github.com/UsergeTeam/Userge",
-                description="Setup Your Own",
-                thumb_url="https://imgur.com/download/Inyeb1S",
+                url="https://t.me/RosoManage2_bot",
+                description="Bot for manage group",
+                thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                "🧰 Support",
-                                url="https://github.com/UsergeTeam/Userge"),
+                                "🔊 Support",
+                                url="https://t.me/arunasupportbot"),
                             InlineKeyboardButton(
-                                "🖥 Help",
-                                url="https://t.me/theUserge/102")
+                                "🧑‍💻 Owner",
+                                url="https://t.me/RosoOwner_bot")
                         ]
                     ]
                 )
@@ -383,7 +383,7 @@ if userge.has_bot:
                         "🕹 **Roso Extra Plugins** 🕹"
                     ),
                     url="https://t.me/RosoManage2_bot",
-                    description="Roso Extra Plugins",
+                    description="Open Extra Plugins",
                     thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
                 )
