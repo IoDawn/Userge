@@ -22,15 +22,15 @@ from pyrogram.errors.exceptions.bad_request_400 import MessageNotModified, Messa
 from userge import userge, Message, Config, get_collection
 
 _CATEGORY = {
-    'admin': 'ð¨ââï¸',
-    'fun': 'ð¨',
-    'misc': 'âï¸',
-    'tools': 'ð§°',
-    'utils': 'ð',
-    'unofficial': 'ð',
-    'temp': 'â»ï¸',
-    'custom': 'ð¨',
-    'plugins': 'ð'
+    'admin': '👨‍✈️',
+    'fun': '🎨',
+    'misc': '📑',
+    'tools': '🧰',
+    'utils': '🗂',
+    'unofficial': '🃏',
+    'temp': '♻️',
+    'custom': '👨',
+    'plugins': 'ℹ️'
 }
 SAVED_SETTINGS = get_collection("CONFIGS")
 PRVT_MSGS = {}
@@ -46,15 +46,15 @@ async def _init() -> None:
 async def helpme(message: Message) -> None:  # pylint: disable=missing-function-docstring
     plugins = userge.manager.enabled_plugins
     if not message.input_str:
-        out_str = f"""â <b><u>(<code>{len(plugins)}</code>) Plugin(s) Available</u></b>\n\n"""
+        out_str = f"""⚒ <b><u>(<code>{len(plugins)}</code>) Plugin(s) Available</u></b>\n\n"""
         cat_plugins = userge.manager.get_plugins()
         for cat in sorted(cat_plugins):
             if cat == "plugins":
                 continue
-            out_str += (f"    {_CATEGORY.get(cat, 'ð')} <b>{cat}</b> "
+            out_str += (f"    {_CATEGORY.get(cat, '📁')} <b>{cat}</b> "
                         f"(<code>{len(cat_plugins[cat])}</code>) :   <code>"
                         + "</code>    <code>".join(sorted(cat_plugins[cat])) + "</code>\n\n")
-        out_str += f"""ð <b>Usage:</b>  <code>{Config.CMD_TRIGGER}help [plugin_name]</code>"""
+        out_str += f"""📕 <b>Usage:</b>  <code>{Config.CMD_TRIGGER}help [plugin_name]</code>"""
     else:
         key = message.input_str
         if (not key.startswith(Config.CMD_TRIGGER)
@@ -62,14 +62,14 @@ async def helpme(message: Message) -> None:  # pylint: disable=missing-function-
                 and (len(plugins[key].enabled_commands) > 1
                      or plugins[key].enabled_commands[0].name.lstrip(Config.CMD_TRIGGER) != key)):
             commands = plugins[key].enabled_commands
-            out_str = f"""â <b><u>(<code>{len(commands)}</code>) Command(s) Available</u></b>
+            out_str = f"""⚔ <b><u>(<code>{len(commands)}</code>) Command(s) Available</u></b>
 
-ð§ <b>Plugin:</b>  <code>{key}</code>
-ð <b>Doc:</b>  <code>{plugins[key].doc}</code>\n\n"""
+🔧 <b>Plugin:</b>  <code>{key}</code>
+📘 <b>Doc:</b>  <code>{plugins[key].doc}</code>\n\n"""
             for i, cmd in enumerate(commands, start=1):
-                out_str += (f"    ð¤ <b>cmd(<code>{i}</code>):</b>  <code>{cmd.name}</code>\n"
-                            f"    ð <b>info:</b>  <i>{cmd.doc}</i>\n\n")
-            out_str += f"""ð <b>Usage:</b>  <code>{Config.CMD_TRIGGER}help [command_name]</code>"""
+                out_str += (f"    🤖 <b>cmd(<code>{i}</code>):</b>  <code>{cmd.name}</code>\n"
+                            f"    📚 <b>info:</b>  <i>{cmd.doc}</i>\n\n")
+            out_str += f"""📕 <b>Usage:</b>  <code>{Config.CMD_TRIGGER}help [command_name]</code>"""
         else:
             commands = userge.manager.enabled_commands
             key = key.lstrip(Config.CMD_TRIGGER)
@@ -89,14 +89,14 @@ if userge.has_bot:
                 try:
                     await func(c_q)
                 except MessageNotModified:
-                    await c_q.answer("Nothing Found to Refresh ð¤·ââï¸", show_alert=True)
+                    await c_q.answer("Nothing Found to Refresh 🤷‍♂️", show_alert=True)
                 except MessageIdInvalid:
-                    await c_q.answer("Sorry, I Don't Have Permissions to edit this ð",
+                    await c_q.answer("Sorry, I Don't Have Permissions to edit this 😔",
                                      show_alert=True)
             else:
                 user_dict = await userge.bot.get_user_dict(Config.OWNER_ID[0])
                 await c_q.answer(
-                    f"Only {user_dict['flname']} Sorry you are not allowed to use this",
+                    f"Only {user_dict['flname']} Can Access this...! Build Your Own @TheUserge 🤘",
                     show_alert=True)
         return wrapper
 
@@ -110,11 +110,11 @@ if userge.has_bot:
         pos_list = cur_pos.split('|')
         if len(pos_list) == 1:
             buttons = parse_buttons(p_num, cur_pos,
-                                    lambda x: f"{_CATEGORY.get(x, 'ð')} {x}",
+                                    lambda x: f"{_CATEGORY.get(x, '📁')} {x}",
                                     userge.manager.get_all_plugins())
         elif len(pos_list) == 2:
             buttons = parse_buttons(p_num, cur_pos,
-                                    lambda x: f"ð {x}",
+                                    lambda x: f"🗃 {x}",
                                     userge.manager.get_all_plugins()[pos_list[-1]])
         elif len(pos_list) == 3:
             _, buttons = plugin_data(cur_pos, p_num)
@@ -130,7 +130,7 @@ if userge.has_bot:
             await callback_query.answer("you are in main menu", show_alert=True)
             return
         if len(pos_list) == 2:
-            text = "ð **Roso Extra Plugins** ð"
+            text = "🕹 **Roso Extra Plugins** 🕹"
             buttons = main_menu_buttons()
         elif len(pos_list) == 3:
             text, buttons = category_data(cur_pos)
@@ -178,7 +178,7 @@ if userge.has_bot:
     @check_owner
     async def callback_mm(callback_query: CallbackQuery):
         await callback_query.edit_message_text(
-            "ð **Roso Extra Plugins** ð", reply_markup=InlineKeyboardMarkup(main_menu_buttons()))
+            "🕹 **Roso Extra Plugins** 🕹", reply_markup=InlineKeyboardMarkup(main_menu_buttons()))
 
     @userge.bot.on_callback_query(filters=filters.regex(pattern=r"^chgclnt$"))
     @check_owner
@@ -219,7 +219,7 @@ if userge.has_bot:
             await c_q.answer(msg, show_alert=True)
         else:
             await c_q.answer(
-                f"Only {flname} can see this Private Msg... ð", show_alert=True)
+                f"Only {flname} can see this Private Msg... 😔", show_alert=True)
 
     def is_filter(name: str) -> bool:
         split_ = name.split('.')
@@ -241,72 +241,72 @@ if userge.has_bot:
             pairs = pairs[current_page*rows:(current_page + 1)*rows] + [
                 [
                     InlineKeyboardButton(
-                        "âª Previous", callback_data=f"({cur_pos})prev({current_page})".encode()),
+                        "⏪ Previous", callback_data=f"({cur_pos})prev({current_page})".encode()),
                     InlineKeyboardButton(
-                        "â© Next", callback_data=f"({cur_pos})next({current_page})".encode())],
+                        "⏩ Next", callback_data=f"({cur_pos})next({current_page})".encode())],
             ]
         pairs += default_buttons(cur_pos)
         return pairs
 
     def main_menu_buttons():
         return parse_buttons(0, "mm",
-                             lambda x: f"{_CATEGORY.get(x, 'ð')} {x}",
+                             lambda x: f"{_CATEGORY.get(x, '📁')} {x}",
                              userge.manager.get_all_plugins())
 
     def default_buttons(cur_pos: str):
         tmp_btns = []
         if cur_pos != "mm":
             tmp_btns.append(InlineKeyboardButton(
-                "â¬ Back", callback_data=f"back({cur_pos})".encode()))
+                "⬅ Back", callback_data=f"back({cur_pos})".encode()))
             if len(cur_pos.split('|')) > 2:
                 tmp_btns.append(InlineKeyboardButton(
-                    "ð¥ Main Menu", callback_data="mm".encode()))
+                    "🖥 Main Menu", callback_data="mm".encode()))
                 tmp_btns.append(InlineKeyboardButton(
-                    "ð Refresh", callback_data=f"refresh({cur_pos})".encode()))
+                    "🔄 Refresh", callback_data=f"refresh({cur_pos})".encode()))
         elif userge.dual_mode:
-            cur_clnt = "ð² USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "ð¤ BOT"
+            cur_clnt = "👤 USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "🤖 BOT"
             tmp_btns.append(InlineKeyboardButton(
-                f"ð© Client for Checks and Sudos : {cur_clnt}", callback_data="chgclnt".encode()))
+                f"🔩 Client for Checks and Sudos : {cur_clnt}", callback_data="chgclnt".encode()))
         return [tmp_btns]
 
     def category_data(cur_pos: str):
         pos_list = cur_pos.split('|')
         plugins = userge.manager.get_all_plugins()[pos_list[1]]
         text = (f"**(`{len(plugins)}`) Plugin(s) Under : "
-                f"`{_CATEGORY.get(pos_list[1], 'ð')} {pos_list[1]}` ð­ Category**")
+                f"`{_CATEGORY.get(pos_list[1], '📁')} {pos_list[1]}` 🎭 Category**")
         buttons = parse_buttons(0, '|'.join(pos_list[:2]),
-                                lambda x: f"ð {x}",
+                                lambda x: f"🗃 {x}",
                                 plugins)
         return text, buttons
 
     def plugin_data(cur_pos: str, p_num: int = 0):
         pos_list = cur_pos.split('|')
         plg = userge.manager.plugins[pos_list[2]]
-        text = f"""ð **--Plugin Status--** ð
+        text = f"""🗃 **--Plugin Status--** 🗃
 
-ð­ **Category** : `{pos_list[1]}`
-ð **Name** : `{plg.name}`
-ð **Doc** : `{plg.doc}`
-â **Commands** : `{len(plg.commands)}`
-â **Filters** : `{len(plg.filters)}`
-â **Loaded** : `{plg.is_loaded}`
-â **Enabled** : `{plg.is_enabled}`
+🎭 **Category** : `{pos_list[1]}`
+🔖 **Name** : `{plg.name}`
+📝 **Doc** : `{plg.doc}`
+⚔ **Commands** : `{len(plg.commands)}`
+⚖ **Filters** : `{len(plg.filters)}`
+✅ **Loaded** : `{plg.is_loaded}`
+➕ **Enabled** : `{plg.is_enabled}`
 """
         tmp_btns = []
         if plg.is_loaded:
             tmp_btns.append(InlineKeyboardButton(
-                "â Unload", callback_data=f"unload({'|'.join(pos_list[:3])})".encode()))
+                "❎ Unload", callback_data=f"unload({'|'.join(pos_list[:3])})".encode()))
         else:
             tmp_btns.append(InlineKeyboardButton(
-                "â Load", callback_data=f"load({'|'.join(pos_list[:3])})".encode()))
+                "✅ Load", callback_data=f"load({'|'.join(pos_list[:3])})".encode()))
         if plg.is_enabled:
             tmp_btns.append(InlineKeyboardButton(
-                "â Disable", callback_data=f"disable({'|'.join(pos_list[:3])})".encode()))
+                "➖ Disable", callback_data=f"disable({'|'.join(pos_list[:3])})".encode()))
         else:
             tmp_btns.append(InlineKeyboardButton(
-                "â Enable", callback_data=f"enable({'|'.join(pos_list[:3])})".encode()))
+                "➕ Enable", callback_data=f"enable({'|'.join(pos_list[:3])})".encode()))
         buttons = parse_buttons(p_num, '|'.join(pos_list[:3]),
-                                lambda x: f"â {x}" if is_filter(x) else f"â {x}",
+                                lambda x: f"⚖ {x}" if is_filter(x) else f"⚔ {x}",
                                 (flt.name for flt in plg.commands + plg.filters))
         buttons = buttons[:-1] + [tmp_btns] + [buttons[-1]]
         return text, buttons
@@ -317,34 +317,34 @@ if userge.has_bot:
         flts = {flt.name: flt for flt in plg.commands + plg.filters}
         flt = flts[pos_list[-1]]
         flt_data = f"""
-ð **Name** : `{flt.name}`
-ð **Doc** : `{flt.doc}`
-ð¤ **Via Bot** : `{flt.allow_via_bot}`
-â **Loaded** : `{flt.is_loaded}`
-â **Enabled** : `{flt.is_enabled}`"""
+🔖 **Name** : `{flt.name}`
+📝 **Doc** : `{flt.doc}`
+🤖 **Via Bot** : `{flt.allow_via_bot}`
+✅ **Loaded** : `{flt.is_loaded}`
+➕ **Enabled** : `{flt.is_enabled}`"""
         if hasattr(flt, 'about'):
-            text = f"""â **--Command Status--**
+            text = f"""⚔ **--Command Status--**
 {flt_data}
 {flt.about}
 """
         else:
-            text = f"""â **--Filter Status--** â
+            text = f"""⚖ **--Filter Status--** ⚖
 {flt_data}
 """
         buttons = default_buttons(cur_pos)
         tmp_btns = []
         if flt.is_loaded:
             tmp_btns.append(InlineKeyboardButton(
-                "â Unload", callback_data=f"unload({cur_pos})".encode()))
+                "❎ Unload", callback_data=f"unload({cur_pos})".encode()))
         else:
             tmp_btns.append(InlineKeyboardButton(
-                "â Load", callback_data=f"load({cur_pos})".encode()))
+                "✅ Load", callback_data=f"load({cur_pos})".encode()))
         if flt.is_enabled:
             tmp_btns.append(InlineKeyboardButton(
-                "â Disable", callback_data=f"disable({cur_pos})".encode()))
+                "➖ Disable", callback_data=f"disable({cur_pos})".encode()))
         else:
             tmp_btns.append(InlineKeyboardButton(
-                "â Enable", callback_data=f"enable({cur_pos})".encode()))
+                "➕ Enable", callback_data=f"enable({cur_pos})".encode()))
         buttons = [tmp_btns] + buttons
         return text, buttons
 
@@ -353,22 +353,22 @@ if userge.has_bot:
         results = [
             InlineQueryResultArticle(
                 id=uuid4(),
-                title="Info",
+                title="Repo",
                 input_message_content=InputTextMessageContent(
-                    "**What do you want**â"
+                    "**Here's how to setup Userge** 😎"
                 ),
-                url="https://t.me/RosoManage2_bot",
-                description="Link",
-                thumb_url="https://i.imgur.com/hQoDnX9.jpg",
+                url="https://github.com/UsergeTeam/Userge",
+                description="Setup Your Own",
+                thumb_url="https://imgur.com/download/Inyeb1S",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                "Support ð",
-                                url="https://t.me/arunasupportbot"),
+                                "🧰 Support",
+                                url="https://github.com/UsergeTeam/Userge"),
                             InlineKeyboardButton(
-                                "Contact me ð§âð»",
-                                url="https://t.me/RosoOwner_bot")
+                                "🖥 Help",
+                                url="https://t.me/theUserge/102")
                         ]
                     ]
                 )
@@ -380,11 +380,11 @@ if userge.has_bot:
                     id=uuid4(),
                     title="Main Menu",
                     input_message_content=InputTextMessageContent(
-                        "ð **Roso Extra Plugins** ð"
+                        "🕹 **Roso Extra Plugins** 🕹"
                     ),
-                    url="https://github.com/UsergeTeam/Userge",
-                    description="Userge Main Menu",
-                    thumb_url="https://imgur.com/download/Inyeb1S",
+                    url="https://t.me/RosoManage2_bot",
+                    description="Roso Extra Plugins",
+                    thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
                 )
             )
@@ -400,16 +400,16 @@ if userge.has_bot:
                     return
                 PRVT_MSGS[inline_query.id] = (user.id, user.first_name, msg.strip(': '))
                 prvte_msg = [[InlineKeyboardButton(
-                    "Show Message ð", callback_data=f"prvtmsg({inline_query.id})")]]
-                msg_c = f"ð A **private message** to {'@' + user.username}, "
+                    "Show Message 🔐", callback_data=f"prvtmsg({inline_query.id})")]]
+                msg_c = f"🔒 A **private message** to {'@' + user.username}, "
                 msg_c += "Only he/she can open it."
                 results.append(
                     InlineQueryResultArticle(
                         id=uuid4(),
                         title=f"A Private Msg to {user.first_name}",
                         input_message_content=InputTextMessageContent(msg_c),
-                        description="Only he/she can open it",
-                        thumb_url="https://imgur.com/download/Inyeb1S",
+                        description="Only owner and allowed users can open it",
+                        thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                         reply_markup=InlineKeyboardMarkup(prvte_msg)
                     )
                 )
@@ -422,16 +422,16 @@ if userge.has_bot:
                     text = f"Hello, welcome to **{owner.first_name}** Dm.\n\nWhat you want to do ?"
                 buttons = [[
                     InlineKeyboardButton(
-                        "Contact Me", callback_data="pm_contact"),
+                        "👤 Contact Me", callback_data="pm_contact"),
                     InlineKeyboardButton(
-                        "Spam here", callback_data="pm_spam")]]
+                        "❌ Spam here", callback_data="pm_spam")]]
                 results.append(
                     InlineQueryResultArticle(
                         id=uuid4(),
                         title="Pm Permit",
                         input_message_content=InputTextMessageContent(text),
                         description="Inline Pm Permit Handler",
-                        thumb_url="https://imgur.com/download/Inyeb1S",
+                        thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                         reply_markup=InlineKeyboardMarkup(buttons)
                     )
                 )
