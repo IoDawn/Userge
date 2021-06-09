@@ -382,7 +382,7 @@ if userge.has_bot:
                     input_message_content=InputTextMessageContent(
                         "🕹 **Roso Extra Plugins** 🕹"
                     ),
-                    url="https://t.me/RosoManage2_bot",
+                    url="https://t.me/RosoOwner_bot",
                     description="Open Extra Plugins",
                     thumb_url="https://i.imgur.com/hQoDnX9.jpg",
                     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
