@@ -353,7 +353,7 @@ if userge.has_bot:
         results = [
             InlineQueryResultArticle(
                 id=uuid4(),
-                title="info",
+                title="Info",
                 input_message_content=InputTextMessageContent(
                     "**Here's info about Roso** 🍺"
                 ),
@@ -367,8 +367,8 @@ if userge.has_bot:
                                 "🔊 Support",
                                 url="https://t.me/arunasupportbot"),
                             InlineKeyboardButton(
-                                "🧑‍💻 Owner",
-                                url="https://t.me/RosoOwner_bot")
+                                "🤖 Bot",
+                                url="https://t.me/RosoManage2_bot")
                         ]
                     ]
                 )
